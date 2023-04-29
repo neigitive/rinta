@@ -1,0 +1,539 @@
+@charset "UTF-8";
+:root {
+    /*色*/
+    --LetterColor: #333333;
+    --BackgroundColor: #FEE5E0;
+    --MainColor: #FEF3F3;
+    --SubColor: #A9A199;
+    --AccentColor: #A8D1E8;
+    
+    /*フォント*/
+    --TitleFont: 'Ms Madi', cursive;
+    --MainFont: 'Zen Kaku Gothic New', sans-serif;
+    
+    /*width, height*/
+    --SquareSideLength: 128px; /*正方形パーツの直径を指定*/
+    --CircleDiameter: 200px; /*正円パーツの直径を指定*/
+    --GoogleMaps: 512px; /*iframeの大きさ*/
+    
+    /*margin, gap*/
+    --MainGutter: 200px;
+    --SubGutter: 30px;
+}
+
+html {
+    font-size: 100%;
+    font-family: var(--MainFont);
+}
+body {
+    font-size: 1rem;
+}
+a {
+    text-decoration: none;
+}
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+li {
+    list-style: none;
+}
+
+/*配色*/
+body, a {
+    color: var(--LetterColor);
+}
+body {
+    background-color: var(--BackgroundColor);
+}
+article, footer {
+    background-color: var(--MainColor);
+    box-shadow: 0px 0px 16px 16px var(--MainColor);
+}
+.highlight {
+    background: linear-gradient(transparent 80%, var(--AccentColor) 60%);
+}
+nav ul li a:hover {
+    color: var(--BackgroundColor);
+    transition-duration: 2s;
+    mix-blend-mode: normal;
+    letter-spacing: 16px; /*アニメーションになった*/
+}
+img {
+    background-color: var(--MainColor);
+}
+:is(main, footer) a {
+    text-decoration: var(--AccentColor) underline;
+    text-decoration-thickness: 2px;
+}
+/*ユーティリティクラス*/
+.br50 {
+    border-radius: 50%;
+}
+.br-sp {
+    display: none;
+}
+
+/*アウトライン*/
+body {
+    display: grid;
+    grid-template: 
+        "head head head" 100vh
+        ".    main .   " auto
+        ".    foot .   " auto
+        / minmax(4px, 1fr) minmax(auto, 1200px) minmax(4px, 1fr);
+}
+header {
+    grid-area: head;
+}
+main {
+    grid-area: main;
+}
+footer {
+    grid-area: foot;
+}
+
+/*ヒーローエリア*/
+header {
+    margin: 10vh 10%;
+    position: relative;
+}
+header > * {
+    position: absolute;
+}
+.mainvisual {
+    z-index: 1;
+    width: 100%;
+}
+.mainvisual img {
+    width: 100%;
+    height: 80vh;
+    object-fit: cover;
+    object-position: left bottom;
+    box-shadow: 1px 1px 4px 1px black;
+    padding: 20px;
+}
+h1 {
+    z-index: 2;
+    font-weight: 400;
+    mix-blend-mode: color-burn;
+    font-family: var(--TitleFont);
+    font-size: 6rem;
+    margin-top: 5vh;
+    margin-left: 4rem;
+    transform: rotate(-10deg);
+    line-height: calc(1.5em/2 - 10px);
+    letter-spacing: 8px;
+}
+h1 span {
+    font-size: 0.5em;
+    margin-left: 1rem;
+    letter-spacing: 2px;
+}
+nav {
+    z-index: 3;
+    font-size: 4rem;
+    top: 0;
+    right: 5%;
+    font-family: var(--TitleFont);
+    line-height: 1em;
+    top: 50vh;
+}
+nav ul li a {
+    font-weight: 400;
+    letter-spacing: 4px;
+    mix-blend-mode: darken;
+}
+
+/*main共通*/
+section {
+    margin-block: var(--MainGutter);
+}
+h2 {
+    font-family: var(--TitleFont);
+    font-size: 6rem;
+    font-weight: 400;
+    line-height: 1em;
+    opacity: 0.9;
+    margin: 0 0 0 -1em;
+    transform: rotate(-5deg);
+    letter-spacing: 2px;
+    order: 10;
+}
+h3 {
+    font-family: var(--MainFont);
+    font-weight: 400;
+    font-size: 1.5rem;
+    letter-spacing: 6px;
+    margin-bottom: 30px;
+}
+h4 {
+    font-family: var(--MainFont);
+    font-weight: 400;
+    font-size: 1.25rem;
+    letter-spacing: 4px;
+}
+article {
+    padding: 3rem var(--SubGutter) var(--SubGutter) var(--SubGutter);
+    display: grid;
+    place-items: center;
+    gap: var(--SubGutter);
+}
+
+/*プロフィール*/
+section:nth-of-type(1) article {
+    grid-template: 
+        ". text text" 1fr
+        ". .    .   " 1fr
+        / 1fr 1fr 1fr;
+}
+.profile-icon {
+    width: var(--CircleDiameter);
+    height: var(--CircleDiameter);
+}
+.profile-text {
+    grid-area: text;
+    margin-inline: calc(2 * var(--SubGutter));
+}
+.profile-text p {
+    line-height: 2em;
+}
+.profile-text > p + * {
+    margin-top: 10px;
+}
+.profile-text a:hover {
+    opacity: 0.3;
+    transition: 1.5s;
+}
+.profile-card {
+    width: 100%;
+    height: 100%;
+    padding: var(--SubGutter);
+    border: dotted 2px var(--SubColor);
+    display: grid;
+    grid-template-rows: 1fr auto 1fr;
+    place-items: center;
+    gap: 15px;
+}
+.profile-card img {
+    width: var(--SquareSideLength);
+    height: var(--SquareSideLength);
+    fill: var(--SubColor);
+}
+.profile-card p {
+    font-size: 1rem;
+    place-self: start;
+}
+
+/*ギャラリー*/
+
+/*ギャラリー全般*/
+.gallery-grid {
+    display: grid;
+    grid-template: 
+        "one two three three" 2fr
+        "one two .     .    " 1fr
+        "one .   .     .    " 1fr
+        ".   .   info  info " 170px
+        / 2fr 2fr 1fr 300px;
+    width: 100%;
+    height: 90vh;
+    background-size: cover;
+    background-clip: content-box;
+    padding: 15px;
+    box-shadow: 1px 1px 4px 1px black;
+    margin-bottom: 100px;
+}
+.gallery-grid > * {
+    height: 100%;
+    width: 100%;
+    background-color: var(--MainColor);
+    box-shadow: 1px 1px 4px 1px black;
+}
+.gallery-grid > figure > img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    padding: 10px;
+}
+.gallery-grid > figure:nth-of-type(1) {
+    grid-area: one;
+}
+.gallery-grid > figure:nth-of-type(1):has(>img) {
+    transform: rotate(-5deg);
+}
+.gallery-grid > figure:nth-of-type(2) {
+    grid-area: two;
+}
+.gallery-grid > figure:nth-of-type(2):has(>img) {
+    transform: translate(-20px, -20px);
+}
+.gallery-grid > figure:nth-of-type(3) {
+    grid-area: three;
+}
+.gallery-grid > figure:nth-of-type(3):has(>img) {
+    transform: rotate(5deg);
+}
+.gallery-grid > figure:nth-of-type(4):has(>img) {
+    transform: rotate(5deg);
+}
+.gallery-grid > figure:nth-of-type(5):has(>img) {
+    transform: rotate(-5deg);
+}
+/*画像を4つ以上置いたとき、
+    "1 2 3 3"
+    "1 2 4 5"
+    "1 2 6 /"
+    "7 8 9 /"
+の順番に配列される(はず)*/
+.gallery-grid > .info {
+    max-height: 100%;
+    grid-area: info;
+    background-color: var(--SubColor);
+    display: grid;
+    grid-template: 
+        "h3 map" 120px
+        "p  ." 50px    
+        /1fr 1fr;
+    place-items: center;
+    padding: 10px;
+}
+.info > h3 {
+    margin-bottom: 10px;
+}
+.googlemaps {
+    width: var(--CircleDiameter);
+    height: var(--CircleDiameter);
+    overflow: hidden;
+}
+.googlemaps iframe {
+    opacity: 1;
+    width: var(--GoogleMaps);
+    height: var(--GoogleMaps);
+    margin-top: calc(var(--CircleDiameter)/2 - var(--GoogleMaps)/2);
+    margin-left: calc(var(--CircleDiameter)/2 - var(--GoogleMaps)/2);
+}
+
+.gallery-grid > .transparent {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+/*ギャラリー個別*/
+.tokyo-certainpark {
+    background-image: url("../images/tokyo-certainpark4.jpg");
+    background-position: top;
+}
+.yokohama-nakaku {
+    background-image: url("../images/yokohama-nakaku2.jpg");
+    background-position: top;
+}
+.sinjuku-goen {
+    background-image: url("../images/sinjuku-goen1.jpg");
+    background-position: center;
+}
+
+/*Twitter*/
+section:nth-of-type(3) article {
+    grid-template: 
+        "p tw" 500px
+        /1fr 1fr;
+}
+section:nth-of-type(3) p {
+    line-height: 2em;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    text-align: center;
+}
+.twitter {
+    width: 100%;
+    height: 100%;
+}
+
+/*フッター*/
+footer > * {
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+/*メディアクエリ*/
+@media screen and (max-width:1600px) {
+    h2 {
+        text-align: center;
+        margin: 0;
+    }
+}
+@media screen and (max-width:1139px) {
+    .br-pc {
+        display: none;
+    }
+}
+@media screen and (max-width:1024px) /*iPad 横*/{
+    :root {
+        --MainGutter: 50px;
+        --SubGutter: 15px;
+    }
+    .br-sp {
+        display: inline;
+    }
+    .gallery-grid figure {
+        display: none;
+    }
+    section:nth-of-type(3) article {
+        grid-template: 
+            ".  " auto
+            "twi" auto
+            /auto;
+    }
+}
+@media screen and (max-width:768px) /*iPad 縦*/{
+    h1 br {
+        display: none;
+    }
+    h1, h2 {
+        transform: rotate(0deg);
+    }
+    .br-pc {
+        display: initial;
+    }
+    
+    /*ヒーローエリア*/
+    header {
+        margin: 0 2%;
+    }
+    header > * {
+        position: initial;
+    }
+    .mainvisual img {
+        height: calc(100vh - 5.5rem - 4 * var(--SubGutter)); /*仮置き*/
+        padding: 10px;
+    }
+    h1 {
+        font-size: 4rem;
+        margin: var(--SubGutter) 0 0;
+        line-height: 1em;
+        text-align: center;
+    }
+    h1 span {
+        font-size: 0.5em;
+        letter-spacing: 1px;
+    }
+    nav {
+        font-size: 1.5rem;
+        margin-bottom: var(--SubGutter);
+    }
+    nav ul {
+        display: flex;
+        justify-content: center;
+    }
+    nav ul li a {
+        font-family: var(--MainFont);
+        letter-spacing: 1px;
+        filter: drop-shadow(0px 0px 1px black);
+    }
+    nav ul > li + * {
+        margin-left: calc(3*var(--SubGutter));
+    }
+}
+@media screen and (max-width:740px) {
+    :root {
+    --CircleDiameter: 160px;
+    }
+    .gallery-grid {
+        grid-template-rows: 2fr 1fr 1fr 120px; /*最終段を120pxに*/
+    }
+    .gallery-grid > .info {
+        margin-inline: auto;
+        grid-area: 4/1/5/5;
+        grid-template-rows: 60px 60px;
+        box-shadow: none;
+    }
+    .br-sp {
+        display: none;
+    }
+    section:nth-of-type(3) p {
+    line-height: 1.5em;
+    font-size: 1.125rem;
+    letter-spacing: 1px;
+    }
+    .br-pc {
+        display: none;
+    }
+}
+@media screen and (max-width:480px) {
+    .mainvisual img {
+    object-position: left 20% bottom 0%;
+}
+    h2 {
+        font-size: 2.75rem;
+        margin-bottom: -0.25em;
+    }
+    section:nth-of-type(1) article {
+        grid-template: 
+            ".   " auto
+            "text" auto
+            ".   " 1fr
+            ".   " 1fr
+            ".   " 1fr
+            /100%;
+    }
+    .profile-text p:first-letter {
+        font-size: 1.25rem;
+    }
+    .info h3 {
+        font-size: 1.25rem;
+        letter-spacing: 0px;
+    }
+    .info p {
+        font-size: 0.875rem;
+    }
+}
+
+/*アニメーション*/
+@keyframes fadein-top {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+header {
+    animation-name: fadein-top;
+    animation-duration: 2s;
+}
+
+@keyframes fadein-left {
+    0% {
+        opacity: 0;
+        transform: translateX(-30px) rotate(-5deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px) rotate(-5deg);
+    }
+}
+
+h2.active {
+    animation-name: fadein-left;
+    animation-duration: 1.5s;
+}
+
+@keyframes fadein-right {
+    0% {
+        opacity: 0.4;
+        transform: translateX(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+.info.active {
+    animation-name: fadein-right;
+    animation-duration: 1s;
+}
